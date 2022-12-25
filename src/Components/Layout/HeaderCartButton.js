@@ -1,19 +1,37 @@
-import {React, useContext } from "react";
+import {React, useContext, useEffect, useState } from "react";
 import cartContext from "../../store/cart-context";
 import CartIcon from "../Cart/CartIcon";
 import classes from './HeaderCartButton.module.css'
 
 
 const HeaderCartButton = props => {
-
     const ctx = useContext(cartContext);
-    console.group(ctx.items[1])
+    const [buttonIsLit, setButtonIsLit] = useState(true)
+
+    const { items } = ctx;
     const cartTotalAmount = ctx.items.reduce((curNum, item) => {
 
         return (curNum + item.amount)
     }, 0)
 
-    return <button className={classes.button} onClick = {props.onClick}>
+    const bigButton = `${classes.button} ${buttonIsLit ? classes.bump : ''}`
+
+    useEffect(() => {
+        if(items.length === 0){
+            return;
+        }
+
+        setButtonIsLit(true)
+        const timer = setTimeout(()=> {
+            setButtonIsLit(false)
+        }, 300)
+
+        return ()=>{
+            clearTimeout(timer)
+        } 
+    }, [items])
+
+    return <button className={bigButton} onClick = {props.onClick}>
         <span className={classes.icon}> <CartIcon /> </span>
         <span>Your Cart</span>
         <span className={classes.badge}>{cartTotalAmount}</span>
