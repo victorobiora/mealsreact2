@@ -7,9 +7,10 @@ import classes from './HeaderCartButton.module.css'
 const HeaderCartButton = props => {
 
     const ctx = useContext(cartContext);
+    console.group(ctx.items[1])
     const cartTotalAmount = ctx.items.reduce((curNum, item) => {
-        console.log(curNum, item.amount)
-        return (curNum + +item.amount)
+
+        return (curNum + item.amount)
     }, 0)
 
     return <button className={classes.button} onClick = {props.onClick}>

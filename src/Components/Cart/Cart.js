@@ -7,15 +7,28 @@ import { useContext } from 'react'
 
 const Cart = props => {
     const cartCtx = useContext(cartContext);
-    console.log(cartCtx)
-  
     const totalAmountFormatted = `$${cartCtx.totalAmount.toFixed(2)}`
     const hasItems = cartCtx.items.length > 0
+    console.log(cartCtx)
+  
+
+    const cartItemAddHandler = item => {
+
+    }
+
+    const cartItemRemoveHandler = id => {
+        
+    }
 
 
     const cartItems = <ul className={classes['cart-items']}>
         {cartCtx.items.map(el =>
-         (< CartItem key={el.id} name ={el.name} price = {el.price} amount = {el.amount}/>) )}</ul>
+         (< CartItem key={el.id}
+             name ={el.name}
+             price = {el.price}
+            amount = {el.amount}
+            onRemove = {cartItemRemoveHandler.bind(null, el.id)}
+            onAdd = {cartItemAddHandler.bind(null, el)}/>) )}</ul>
 
         
 
