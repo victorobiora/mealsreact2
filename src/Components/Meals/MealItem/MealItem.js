@@ -9,6 +9,7 @@ const MealItem = props => {
     const addItemHandler = amount => {
       console.log(amount)
       ctx.addItem({ name:props.name, id: props.id, price: props.price, amount: amount})
+      
     }
 
     const price = `$${props.price.toFixed(2)}`

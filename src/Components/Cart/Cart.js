@@ -1,14 +1,21 @@
 import classes from './Cart.module.css'
 import CartOverlay from './CartOverlay'
-
+import CartItem from './CartItem'
+import cartContext from '../../store/cart-context'
+import { useContext } from 'react'
 
 
 const Cart = props => {
+    const cartCtx = useContext(cartContext);
+    console.log(cartCtx)
   
+    const totalAmountFormatted = `$${cartCtx.totalAmount.toFixed(2)}`
+    const hasItems = cartCtx.items.length > 0
+
+
     const cartItems = <ul className={classes['cart-items']}>
-        {[{id: 'h1', name: 'sushi', key: Math.floor(Math.random() *1000) }, 
-        {id: 'h2', name: 'beans', key: Math.floor(Math.random() *1000) }].map(el =>
-         (<li key={el.key}>{el.name}</li>) )}</ul>
+        {cartCtx.items.map(el =>
+         (< CartItem key={el.id} name ={el.name} price = {el.price} amount = {el.amount}/>) )}</ul>
 
         
 
@@ -18,11 +25,11 @@ const Cart = props => {
         <div> {cartItems}</div> 
         <div className={classes.total}>
                <span>Amount</span>
-               <span>35.69</span>
+               <span>{totalAmountFormatted}</span>
         </div> 
         <div className={classes.actions}>
             <button className={classes['button--alt']} onClick = {props.removeCart}>close</button>
-            <button className={classes.button}>Order</button>
+         { hasItems &&  <button className={classes.button}>Order</button> } 
         </div>
       </CartOverlay>
  )

@@ -31,7 +31,7 @@ const RemoveItemFromCartHandler = id => {
 }
     const cartContext = {
         items: cartState.items,
-        totalAmount: cartState.total,
+        totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: RemoveItemFromCartHandler
     };
