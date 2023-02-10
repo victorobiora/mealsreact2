@@ -6,6 +6,10 @@ const defaultCartState = {
     totalAmount: 0
 }
 
+const postCartHandler = ()=> {
+
+};
+
 const cartReducer = (state, action) => {
     if(action.type === 'ADD_ITEM'){
        const updatedAmount = state.totalAmount + (action.item.price * action.item.amount)
@@ -71,7 +75,8 @@ const RemoveItemFromCartHandler = id => {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
-        removeItem: RemoveItemFromCartHandler
+        removeItem: RemoveItemFromCartHandler,
+        postCart: postCartHandler
     };
 
     return <CartContext.Provider value={cartContext}>
