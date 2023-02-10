@@ -2,12 +2,17 @@ import classes from './AvailableMeals.module.css'
 import MealItem from './MealItem/MealItem';
 import Card from '../UI/Card';
 import useRequest from '../../store/useRequest';
+import { useEffect } from 'react';
 
 
 
 const AvailableMeals = () => {
 
-  const {makeRequest, fetchData: loadedMeals } = useRequest('GET')
+  const {makeRequest, fetchData: loadedMeals } = useRequest()
+
+  useEffect(()=> {
+      makeRequest('GET')
+  },[makeRequest])
 
 
   

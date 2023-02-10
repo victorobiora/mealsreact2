@@ -1,14 +1,12 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import cartContext from "./cart-context";
+import { useCallback, useEffect, useState } from "react";
 
 
-const useRequest = (method, newMeal) => {
+
+const useRequest = () => {
 
     const [fetchData, setFetchData] = useState([])
-    const ctx = useContext(cartContext)
-    console.log(ctx)
 
-    const makeRequest = useCallback(async () => {
+    const makeRequest = useCallback(async (method, newMeal) => {
         const mealsArr = []
         if (method === 'GET') {
             try {
@@ -17,19 +15,17 @@ const useRequest = (method, newMeal) => {
 
                 for (const key in res) {
                     mealsArr.push(res[key])
-             
+
                 }
 
                 setFetchData(mealsArr)
-
-                //   ctx.addItem(res)   
             } catch (err) {
                 console.log(err)
             }
         } else {
-            console.log(method)
+
             try {
-                await fetch('https://react-http-67cf3-default-rtdb.firebaseio.com/meals.json',
+                await fetch('https://react-http-67cf3-default-rtdb.firebaseio.com/orders.json',
                     {
                         method: method,
                         body: JSON.stringify(newMeal),
@@ -42,7 +38,7 @@ const useRequest = (method, newMeal) => {
                 console.log(err)
             }
         }
-    }, [method, newMeal])
+    }, [])
 
     useEffect(() => {
 

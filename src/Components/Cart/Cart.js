@@ -4,21 +4,28 @@ import CartItem from './CartItem'
 import cartContext from '../../store/cart-context'
 import OrderForm from './OrderForm'
 import { useContext, useState } from 'react'
+import useRequest from '../../store/useRequest'
 
 
 const Cart = props => {
   const [displayOrderForm, setDisplayOrderForm] = useState(false);
   const [orderText, setOrderText] = useState('Order')
-
+  
+  const { makeRequest: makePostOrder} = useRequest()
   const cartCtx = useContext(cartContext);
   const totalAmountFormatted = `$${cartCtx.totalAmount.toFixed(2)}`
   const hasItems = cartCtx.items.length > 0
-  console.log(cartCtx)
+  
 
 
   const orderFormHandler = event => {
     setDisplayOrderForm(true);
-    setOrderText('Confirm Order')
+    if(orderText === 'Confirm Order'){
+         makePostOrder('POST', cartCtx.postOrders)
+         setOrderText('Request sent!')
+    }else {
+        setOrderText('Confirm Order')
+    }
   }
   const cartItemAddHandler = item => {
     cartCtx.addItem({ ...item, amount: 1 })
